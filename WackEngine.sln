@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{900B1AB1-FBAE-4D32-98CD-0DE57CA1BE44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WackEditor", "WackEditor\WackEditor.csproj", "{1A7371C2-6526-4423-9446-38B6BAE17595}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{900B1AB1-FBAE-4D32-98CD-0DE57CA1BE44}.Debug|x64.ActiveCfg = Debug|x64
+		{900B1AB1-FBAE-4D32-98CD-0DE57CA1BE44}.Debug|x64.Build.0 = Debug|x64
+		{900B1AB1-FBAE-4D32-98CD-0DE57CA1BE44}.Release|x64.ActiveCfg = Release|x64
+		{900B1AB1-FBAE-4D32-98CD-0DE57CA1BE44}.Release|x64.Build.0 = Release|x64
+		{1A7371C2-6526-4423-9446-38B6BAE17595}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1A7371C2-6526-4423-9446-38B6BAE17595}.Debug|x64.Build.0 = Debug|Any CPU
+		{1A7371C2-6526-4423-9446-38B6BAE17595}.Release|x64.ActiveCfg = Release|Any CPU
+		{1A7371C2-6526-4423-9446-38B6BAE17595}.Release|x64.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FE083B5D-B28F-4B79-A7C5-ADDC000EF9FD}
+	EndGlobalSection
+EndGlobal

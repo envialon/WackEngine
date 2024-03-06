@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "WackEditor": {
+      "commandName": "Project",
+      "workingDirectory": "..\\x64\\Debug\\"
+    }
+  }
+}
