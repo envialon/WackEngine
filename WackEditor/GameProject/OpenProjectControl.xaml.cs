@@ -24,5 +24,29 @@ namespace WackEditor.GameProject
         {
             InitializeComponent();
         }
+        private void OnOpenButtonClick(object sender, RoutedEventArgs e)
+        {
+            OpenSelectedProject();
+        }
+        private void OnListBoxItemMouseDoubleClick(object sender, RoutedEventArgs e)
+        {
+            OpenSelectedProject();
+        }
+            
+        private void OpenSelectedProject()
+        {
+            ProjectVM project = OpenProjectWindowVM.Open(projectsListBox.SelectedItem as ProjectData);
+
+            bool dialogResult = false;
+
+            Window win = Window.GetWindow(this);
+            if (project != null)
+            {
+                dialogResult = true;
+                win.DataContext = project;
+            }
+            win.DialogResult = dialogResult;
+            win.Close();
+        }
     }
 }

@@ -30,6 +30,24 @@ namespace WackEditor.GameProject
         [DataMember]
         public ProjectVM Project { get; private set; }
 
+        
+        public bool _isActive;
+        [DataMember]
+        public bool IsActive
+        {
+            get => _isActive;
+            set
+            {
+                if(value != _isActive)
+                {
+                    _isActive = value;
+                    OnPropertyChanged(nameof(IsActive));
+                }
+            }
+        }
+
+
+
         public SceneVM(string name, ProjectVM project)
         {
             Debug.Assert(project != null);

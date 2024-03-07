@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.ComponentModel;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -21,6 +22,13 @@ namespace WackEditor
         {
             InitializeComponent();
             Loaded += OnMainWindowLoaded;
+            Closing += OnMainWindowClosing;
+        }
+
+        private void OnMainWindowClosing(object sender, CancelEventArgs e)
+        {
+            Closing -= OnMainWindowClosing;
+            ProjectVM.CurrentLoadedProject?.Unload();
         }
 
         private void OnMainWindowLoaded(object sender, RoutedEventArgs e)
@@ -33,12 +41,14 @@ namespace WackEditor
         private void OpenProjectBrowserDialog()
         {
             ProjectBrowser projectBrowser = new ProjectBrowser();
-            if(projectBrowser.ShowDialog() == false)
+            if(projectBrowser.ShowDialog() == false || projectBrowser.DataContext ==null)
             {
                 Application.Current.Shutdown();
             }
             else
             {
+                ProjectVM.CurrentLoadedProject?.Unload();
+                DataContext = projectBrowser.DataContext;
                 //TODO: open the project
             }
         }

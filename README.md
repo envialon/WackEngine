@@ -1,2 +1,2 @@
 # WackEngine
- A wack game engine
+ A wack game engine, currently following along [this great series of tutorials](https://youtube.com/playlist?list=PLU2nPsAdxKWQYxkmQ3TdbLsyc1l2j25XM&si=jI-AXSD4qeZzhlXX) by [Game Engine Series](https://www.youtube.com/@GameEngineSeries), will eventually branch out and implement cool functionalities whenever I get a good enough foundation :D.

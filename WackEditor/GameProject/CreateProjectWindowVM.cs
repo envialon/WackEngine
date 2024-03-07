@@ -102,6 +102,35 @@ namespace WackEditor.GameProject
         private ObservableCollection<ProjectTemplate> _projectTemplates = new ObservableCollection<ProjectTemplate>();
         public ReadOnlyObservableCollection<ProjectTemplate> ProjectTemplates { get; }
 
+        public CreateProjectWindowVM()
+        {
+            ProjectTemplates = new ReadOnlyObservableCollection<ProjectTemplate>(_projectTemplates);
+
+            try
+            {
+                string[] templateFiles = Directory.GetFiles(_templatePath, "template.xml", SearchOption.AllDirectories);
+                Debug.Assert(templateFiles.Any());
+                foreach (string filename in templateFiles)
+                {
+                    ProjectTemplate template = Serializer.FromFile<ProjectTemplate>(filename);
+                    template.IconFilePath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(filename), "ProjectIcon.png"));
+                    template.Icon = File.ReadAllBytes(template.IconFilePath);
+                    template.ScreenShotFilePath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(filename), "Screenshot.png"));
+                    template.Screenshot = File.ReadAllBytes(template.ScreenShotFilePath);
+                    template.ProjectFilePath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(filename), template.ProjectFile));
+                    _projectTemplates.Add(template);
+                }
+                ValidateProjectPath();
+
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.Message);
+                // TODO: log error
+            }
+
+        }
+
         /// <summary>
         /// Checks for errors on ProjectName and ProjectPath and if it does,
         /// modifies the ErrorMsg field.
@@ -198,33 +227,5 @@ namespace WackEditor.GameProject
             
         }
 
-        public CreateProjectWindowVM()
-        {
-            ProjectTemplates = new ReadOnlyObservableCollection<ProjectTemplate>(_projectTemplates);
-
-            try
-            {
-                string[] templateFiles = Directory.GetFiles(_templatePath, "template.xml", SearchOption.AllDirectories);
-                Debug.Assert(templateFiles.Any());
-                foreach (string filename in templateFiles)
-                {
-                    ProjectTemplate template = Serializer.FromFile<ProjectTemplate>(filename);
-                    template.IconFilePath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(filename), "ProjectIcon.png"));
-                    template.Icon = File.ReadAllBytes(template.IconFilePath);
-                    template.ScreenShotFilePath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(filename), "Screenshot.png"));
-                    template.Screenshot = File.ReadAllBytes(template.ScreenShotFilePath);
-                    template.ProjectFilePath = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(filename), template.ProjectFile));
-                    _projectTemplates.Add(template);
-                }
-                ValidateProjectPath();
-
-            }
-            catch (Exception ex)
-            {
-                Debug.Write(ex.Message);
-                // TODO: log error
-            }
-
-        }
     }
 }

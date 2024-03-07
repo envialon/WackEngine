@@ -33,9 +33,11 @@ namespace WackEditor.GameProject
             bool dialogResult = false;
 
             Window win = Window.GetWindow(this);
-            if(!string.IsNullOrEmpty(projectPath))
+            if (!string.IsNullOrEmpty(projectPath))
             {
                 dialogResult = true;
+                ProjectVM project = OpenProjectWindowVM.Open(new ProjectData() { ProjectName = vm.ProjectName, ProjectPath = projectPath });
+                win.DataContext = project;
             }
             win.DialogResult = dialogResult;
             win.Close();
