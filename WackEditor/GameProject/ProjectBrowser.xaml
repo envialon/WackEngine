@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WackEditor.GameProject"
         mc:Ignorable="d" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Title="WackEngine Project Browser" Height="500" Width="800">
+        Title="WackEngine Project Browser" Height="550" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
