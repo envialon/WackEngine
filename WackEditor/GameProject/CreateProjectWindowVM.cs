@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Xps;
 using WackEditor.Utilities;
@@ -33,7 +34,7 @@ namespace WackEditor.GameProject
     }
 
 
-    class NewProjectViewModel : ViewModelBase
+    class CreateProjectWindowVM : ViewModelBase
     {
         // TODO: Get path from installation location.
         private readonly string _templatePath = @"..\..\WackEditor\ProjectTemplates\";
@@ -101,15 +102,19 @@ namespace WackEditor.GameProject
         private ObservableCollection<ProjectTemplate> _projectTemplates = new ObservableCollection<ProjectTemplate>();
         public ReadOnlyObservableCollection<ProjectTemplate> ProjectTemplates { get; }
 
-
+        /// <summary>
+        /// Checks for errors on ProjectName and ProjectPath and if it does,
+        /// modifies the ErrorMsg field.
+        /// </summary>
+        /// <returns></returns>
         private bool ValidateProjectPath()
         {
-            var path = ProjectPath;
-            if (!Path.EndsInDirectorySeparator(path))
+            var fullPath = ProjectPath;
+            if (!Path.EndsInDirectorySeparator(fullPath))
             {
-                path += @"\";
+                fullPath += @"\";
             }
-            path += @"{ProjectName}\";
+            fullPath += $@"{ProjectName}\";
 
             IsValid = false;
 
@@ -128,7 +133,7 @@ namespace WackEditor.GameProject
             {
                 ErrorMsg = "Invalid character(s) used in project path.";
             }
-            else if(Directory.Exists(path) && Directory.EnumerateFileSystemEntries(path).Any())
+            else if(Directory.Exists(fullPath) && Directory.EnumerateFileSystemEntries(fullPath).Any())
             {
                 ErrorMsg = "Target project folder already exists and its not empty.";
             }
@@ -141,7 +146,59 @@ namespace WackEditor.GameProject
             return IsValid;
         }
 
-        public NewProjectViewModel()
+        /// <summary>
+        /// Returns the path of the created Project
+        /// </summary>
+        /// <param name="template"></param>
+        /// <returns></returns>
+        public string CreateProject(ProjectTemplate template)
+        {
+            ValidateProjectPath();
+            if(!IsValid)
+            {
+                return string.Empty;
+            }
+
+            if (!Path.EndsInDirectorySeparator(ProjectPath)) ProjectPath+= @"\";        
+            string fullPath = $@"{ProjectPath}{ProjectName}\";
+
+            try
+            {
+                //Create project dir if it doesn't exist, then create all of the subfolders
+                if (!Directory.Exists(fullPath)) Directory.CreateDirectory(fullPath);
+                foreach (string folderName in template.FolderNames)
+                {
+                    Directory.CreateDirectory(Path.GetFullPath(Path.Combine(Path.GetDirectoryName(fullPath), folderName)));
+                }
+
+
+                //Copy icon and screenshot to the hidden .Wack dirs
+                DirectoryInfo dirInfo = new DirectoryInfo(fullPath+ @".Wack\");
+                dirInfo.Attributes = FileAttributes.Hidden;
+                File.Copy(template.IconFilePath, Path.GetFullPath(Path.Combine(dirInfo.FullName, "Icon.png")));
+                File.Copy(template.ScreenShotFilePath, Path.GetFullPath(Path.Combine(dirInfo.FullName, "Screenshot.png")));
+
+                //open the template project file and create the new one
+                string projectXml = File.ReadAllText(template.ProjectFilePath);
+                projectXml = string.Format(projectXml, ProjectName, ProjectPath); //put the correct name and path on the xml fields
+                string projectFilePath = Path.GetFullPath(Path.Combine(fullPath, $"{ProjectName}{ProjectVM.Extension}"));
+
+                File.WriteAllText(projectFilePath, projectXml);
+
+
+                return fullPath;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.Message);
+                // TODO: log error
+                return string.Empty;
+            }
+
+            
+        }
+
+        public CreateProjectWindowVM()
         {
             ProjectTemplates = new ReadOnlyObservableCollection<ProjectTemplate>(_projectTemplates);
 

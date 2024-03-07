@@ -1,0 +1,10 @@
+<ProjectVM z:Id="i1" xmlns="http://schemas.datacontract.org/2004/07/WackEditor.GameProject" xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/">
+    <ProjectName>{0}</ProjectName>
+    <ProjectPath>{1}</ProjectPath>
+    <_scenes>
+        <SceneVM z:Id="i2">
+            <Name>DefaultScene</Name>
+            <Project z:Ref="i1"/>
+        </SceneVM>
+    </_scenes>
+</ProjectVM>

@@ -24,5 +24,21 @@ namespace WackEditor.GameProject
         {
             InitializeComponent();
         }
+
+        private void OnCreateButtonClick(object sender, RoutedEventArgs e)
+        {
+            CreateProjectWindowVM vm = DataContext as CreateProjectWindowVM;
+            string projectPath = vm.CreateProject(templateListBox.SelectedItem as ProjectTemplate);
+
+            bool dialogResult = false;
+
+            Window win = Window.GetWindow(this);
+            if(!string.IsNullOrEmpty(projectPath))
+            {
+                dialogResult = true;
+            }
+            win.DialogResult = dialogResult;
+            win.Close();
+        }
     }
 }
