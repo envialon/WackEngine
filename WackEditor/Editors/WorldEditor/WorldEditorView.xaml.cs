@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WackEditor.GameProject;
 
 namespace WackEditor.Editors
@@ -24,6 +13,16 @@ namespace WackEditor.Editors
         public WorldEditorView()
         {
             InitializeComponent();
+            Loaded += OnWorldEditorViewLoaded;
+        }
+
+        private void OnWorldEditorViewLoaded(object sender, RoutedEventArgs e)
+        {
+            Loaded -= OnWorldEditorViewLoaded;
+            Focus();
+            //Add a delegate to whenever the undo list changes to regain focus 
+            //in case undoing an action loses focus on the controller.
+            ((INotifyCollectionChanged)ProjectVM.UndoRedoManager.UndoList).CollectionChanged += (s, e) => Focus();
         }
     }
 }

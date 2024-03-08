@@ -6,6 +6,7 @@
             <IsActive>true</IsActive>
             <Name>DefaultScene</Name>
             <Project z:Ref="i1"/>
+            <_entities xmlns:a="http://schemas.datacontract.org/2004/07/WackEditor.Components"/>
         </SceneVM>
     </_scenes>
 </ProjectVM>

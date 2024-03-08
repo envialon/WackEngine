@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WackEditor.Components;
 using WackEditor.GameProject;
 
 namespace WackEditor.Editors
@@ -24,6 +25,19 @@ namespace WackEditor.Editors
         public ProjectLayoutView()
         {
             InitializeComponent();
-        }      
+        }
+
+        private void OnAddGameEntityButtonClick(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            SceneVM vm = button.DataContext as SceneVM;
+            vm.AddGameEntityCommand.Execute(new GameEntity(vm) { Name = "EmptyGameEntity" });
+        }
+   
+        private void OnEntitySelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GameEntity entity = (sender as ListBox).SelectedItems[0] as GameEntity;
+            InspectorView.Instance.DataContext = entity;
+        }
     }
 }

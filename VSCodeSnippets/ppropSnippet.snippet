@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>pprop</Title>
+        </Header>
+        <Snippet>
+           <Code Language="CSharp">
+                <![CDATA[  
+                
+                private $paramType$ _$paramName$;
+
+                public $paramType$ $paramName$
+                {
+                    get => _$paramName$;
+                    set
+                    {
+                        if (_$paramName$ != value)
+                        {
+                            _$paramName$ = value;
+                            OnPropertyChanged(nameof($paramName$));
+                        }
+                    }
+
+                }]]>
+            </Code>
+            
+            <Declarations>
+              <Literal>
+                <ID>paramName</ID>
+                <ToolTip>The name of the parameter to create</ToolTip>
+                <Default>param</Default>
+              </Literal>
+              <Type>
+                <ID>paramType</ID>
+                <ToolTip>The type of the parameter to create</ToolTip>
+                <Default>string</Default>
+              </Type>
+
+            </Declarations>
+
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>

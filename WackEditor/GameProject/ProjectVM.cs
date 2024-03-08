@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.Windows.Input;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using WackEditor.Utilities;
 
 namespace WackEditor.GameProject
 {
     [DataContract]
-    class ProjectVM : ViewModelBase
+    public class ProjectVM : ViewModelBase
     {
+
+        #region Attributes
         public static string Extension { get; } = ".wack";
 
         [DataMember]
@@ -24,7 +21,7 @@ namespace WackEditor.GameProject
         [DataMember]
         public string ProjectPath { get; private set; }
 
-        public string FullPath => $"{ProjectPath}{ProjectName}{Extension}";
+        public string FullPath => $@"{ProjectPath}{ProjectName}\{ProjectName}{Extension}";
 
         [DataMember]
         private ObservableCollection<SceneVM> _scenes = new ObservableCollection<SceneVM>();
@@ -50,14 +47,21 @@ namespace WackEditor.GameProject
 
         public static UndoRedo UndoRedoManager { get; } = new UndoRedo();
 
-        public ICommand AddScene { get; private set; }
+        #endregion
 
-        public ICommand RemoveScene { get; private set; }
+        #region Commands
 
-        public ICommand Undo {  get; private set; }
+        public ICommand AddSceneCommand { get; private set; }
 
-        public ICommand Redo { get; private set; }
+        public ICommand RemoveSceneCommand { get; private set; }
 
+        public ICommand UndoCommand { get; private set; }
+
+        public ICommand RedoCommand { get; private set; }
+
+        public ICommand SaveCommand { get; private set; }
+
+        #endregion
 
         /// <summary>
         /// Loads a project from a given filename
@@ -85,40 +89,66 @@ namespace WackEditor.GameProject
         }
 
         /// <summary>
+        /// Creates a new SceneVM and adds it to the _scenes list
+        /// DOESN'T have undo/redo functionality
+        /// </summary>
+        /// <param name="sceneName"></param>
+        private void AddScene(string sceneName)
+        {
+            Debug.Assert(!string.IsNullOrEmpty(sceneName));
+            _scenes.Add(new SceneVM(sceneName, this));
+        }
+
+        /// <summary>
+        /// removes a given SceneVM from _scenes lists
+        /// DOESN'T have undo/redo functionality
+        /// </summary>
+        /// <param name="scene"></param>
+        private void RemoveScene(SceneVM scene)
+        {
+            Debug.Assert(_scenes.Contains(scene));
+            _scenes.Remove(scene);
+        }
+
+        /// <summary>
         /// Initializes all of the editor commands
         /// </summary>
         private void InitializeCommands()
-        {            
-            AddScene = new RelayCommand<object>(x =>
+        {
+            AddSceneCommand = new RelayCommand<object>(x =>
             {
-                AddSceneInternal($"New Scene {_scenes.Count}");
+                AddScene($"New Scene {_scenes.Count}");
                 SceneVM newScene = _scenes.Last();
                 int sceneIndex = _scenes.Count - 1;
                 UndoRedoManager.Add(new UndoRedoAction(
                     $"Add {newScene.Name}",
-                    () => RemoveSceneInternal(newScene),
+                    () => RemoveScene(newScene),
                     () => _scenes.Insert(sceneIndex, newScene)
                     ));
             });
 
-            RemoveScene = new RelayCommand<SceneVM>(
+            RemoveSceneCommand = new RelayCommand<SceneVM>(
             x =>
             {
                 int sceneIndex = _scenes.IndexOf(x);
-                RemoveSceneInternal(x);
+                RemoveScene(x);
                 UndoRedoManager.Add(new UndoRedoAction(
                     $"Remove {x.Name}",
                     () => _scenes.Insert(sceneIndex, x),
-                    () => RemoveSceneInternal(x)
+                    () => RemoveScene(x)
                     ));
             }, x => !x.IsActive);
 
-            Undo = new RelayCommand<object>(
+            UndoCommand = new RelayCommand<object>(
                 x => UndoRedoManager.Undo()
-                ); 
+                );
 
-            Redo = new RelayCommand<object>(
-                x=> UndoRedoManager.Redo()
+            RedoCommand = new RelayCommand<object>(
+                x => UndoRedoManager.Redo()
+                );
+
+            SaveCommand = new RelayCommand<object>(
+                x => Save(this)
                 );
         }
 
@@ -141,29 +171,7 @@ namespace WackEditor.GameProject
 
             InitializeCommands();
         }
-
-        /// <summary>
-        /// Creates a new SceneVM and adds it to the _scenes list
-        /// DOESN'T have undo/redo functionality
-        /// </summary>
-        /// <param name="sceneName"></param>
-        private void AddSceneInternal(string sceneName)
-        {
-            Debug.Assert(!string.IsNullOrEmpty(sceneName));
-            _scenes.Add(new SceneVM(sceneName, this));
-        }
-
-        /// <summary>
-        /// removes a given SceneVM from _scenes lists
-        /// DOESN'T have undo/redo functionality
-        /// </summary>
-        /// <param name="scene"></param>
-        private void RemoveSceneInternal(SceneVM scene)
-        {
-            Debug.Assert(_scenes.Contains(scene));
-            _scenes.Remove(scene);
-        }
-
+             
         //TODO : REMOVE THIS CONSTRUCTOR, PROJECTS SHOULD ONLY BE CREATED BY SERIALIZATION
         /// <summary>
         /// Creates a project by code, SHOULD ONLY BE USED FOR DEBUG REASONS
