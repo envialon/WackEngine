@@ -30,8 +30,8 @@ namespace WackEditor.GameProject
         [DataMember]
         public ProjectVM Project { get; private set; }
 
+        private bool _isActive;
         
-        public bool _isActive;
         [DataMember]
         public bool IsActive
         {
@@ -45,8 +45,6 @@ namespace WackEditor.GameProject
                 }
             }
         }
-
-
 
         public SceneVM(string name, ProjectVM project)
         {

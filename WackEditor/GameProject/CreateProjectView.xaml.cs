@@ -16,33 +16,27 @@ using System.Windows.Shapes;
 namespace WackEditor.GameProject
 {
     /// <summary>
-    /// Interaction logic for OpenProjectControl.xaml
+    /// Interaction logic for CreateProjectControl.xaml
     /// </summary>
-    public partial class OpenProjectControl : UserControl
+    public partial class CreateProjectView : UserControl
     {
-        public OpenProjectControl()
+        public CreateProjectView()
         {
             InitializeComponent();
         }
-        private void OnOpenButtonClick(object sender, RoutedEventArgs e)
+
+        private void OnCreateButtonClick(object sender, RoutedEventArgs e)
         {
-            OpenSelectedProject();
-        }
-        private void OnListBoxItemMouseDoubleClick(object sender, RoutedEventArgs e)
-        {
-            OpenSelectedProject();
-        }
-            
-        private void OpenSelectedProject()
-        {
-            ProjectVM project = OpenProjectWindowVM.Open(projectsListBox.SelectedItem as ProjectData);
+            CreateProjectWindowVM vm = DataContext as CreateProjectWindowVM;
+            string projectPath = vm.CreateProject(templateListBox.SelectedItem as ProjectTemplate);
 
             bool dialogResult = false;
 
             Window win = Window.GetWindow(this);
-            if (project != null)
+            if (!string.IsNullOrEmpty(projectPath))
             {
                 dialogResult = true;
+                ProjectVM project = OpenProjectWindowVM.Open(new ProjectData() { ProjectName = vm.ProjectName, ProjectPath = projectPath });
                 win.DataContext = project;
             }
             win.DialogResult = dialogResult;

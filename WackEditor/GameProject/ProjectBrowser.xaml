@@ -21,8 +21,8 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" x:Name="browserContent" >
-            <local:OpenProjectControl/>
-            <local:CreateProjectControl/>
+            <local:OpenProjectView/>
+            <local:CreateProjectView/>
             
       
         </StackPanel>
