@@ -126,7 +126,7 @@ namespace WackEditor.GameProject
             catch (Exception ex)
             {
                 Debug.Write(ex.Message);
-                // TODO: log error
+                Logger.Log(MessageTypes.Error, $"Failed to open the CreateProject window.");
             }
 
         }
@@ -220,8 +220,8 @@ namespace WackEditor.GameProject
             catch (Exception ex)
             {
                 Debug.Write(ex.Message);
-                // TODO: log error
-                return string.Empty;
+                Logger.Log(MessageTypes.Error, $"Failed to create new project {ProjectName}");
+                throw;
             }
 
             

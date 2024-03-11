@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WackEditor.Components;
 using WackEditor.GameProject;
+using WackEditor.Utilities;
 
 namespace WackEditor.Editors
 {
@@ -36,8 +37,28 @@ namespace WackEditor.Editors
    
         private void OnEntitySelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            GameEntity entity = (sender as ListBox).SelectedItems[0] as GameEntity;
-            InspectorView.Instance.DataContext = entity;
+            InspectorView.Instance.DataContext = null;
+
+            if (e.AddedItems.Count >0)
+            {
+                InspectorView.Instance.DataContext = (sender as ListBox).SelectedItems[0] as GameEntity;
+            }
+            ListBox listBox = sender as ListBox;
+            List<GameEntity> selection = listBox.SelectedItems.Cast<GameEntity>().ToList();
+            List<GameEntity> previousSelection = selection.Except(e.AddedItems.Cast<GameEntity>().Concat(e.RemovedItems.Cast<GameEntity>())).ToList();
+
+            ProjectVM.UndoRedoManager.Add(new UndoRedoAction(
+                $"Selection changed",
+                () => { 
+                    listBox.UnselectAll();
+                    previousSelection.ForEach(x => (listBox.ItemContainerGenerator.ContainerFromItem(x) as ListBoxItem).IsSelected = true); 
+                },
+                () => {
+                    listBox.UnselectAll();
+                    selection.ForEach(x => (listBox.ItemContainerGenerator.ContainerFromItem(x) as ListBoxItem).IsSelected = true);
+                }
+                ));
+
         }
     }
 }

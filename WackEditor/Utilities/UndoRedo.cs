@@ -35,13 +35,23 @@ namespace WackEditor.Utilities
             Name = name;
         }
 
-        public UndoRedoAction(string name, Action undoAction, Action redoAction) : this(name)
+        public UndoRedoAction(string actionName, Action undoAction, Action redoAction) : this(actionName)
         {
 
             Debug.Assert(undoAction != null && redoAction != null);
             _undoAction = undoAction;
             _redoAction = redoAction;
         }
+
+
+        public UndoRedoAction(string actionName, string propertyToChange, object instance, object undoValue, object redoValue) :
+            this(
+                actionName,
+                () => instance.GetType().GetProperty(propertyToChange).SetValue(instance, undoValue),
+                () => instance.GetType().GetProperty(propertyToChange).SetValue(instance, redoValue)
+            )
+        { }
+
     }
 
     /// <summary>
@@ -51,13 +61,14 @@ namespace WackEditor.Utilities
     /// </summary>
     public class UndoRedo
     {
+        private bool _enableAdd = true;
         private readonly ObservableCollection<IUndoRedo> _undoList = new ObservableCollection<IUndoRedo>();
         private readonly ObservableCollection<IUndoRedo> _redoList = new ObservableCollection<IUndoRedo>();
 
         public ReadOnlyObservableCollection<IUndoRedo> UndoList { get; }
         public ReadOnlyObservableCollection<IUndoRedo> RedoList { get; }
 
-        private void Reset()
+        public void Reset()
         {
             _undoList.Clear();
             _redoList.Clear();
@@ -65,8 +76,11 @@ namespace WackEditor.Utilities
 
         public void Add(IUndoRedo action)
         {
-            _undoList.Add(action);
-            _redoList.Clear();
+            if (_enableAdd)
+            {
+                _undoList.Add(action);
+                _redoList.Clear();
+            }
         }
 
         public void Undo()
@@ -75,7 +89,9 @@ namespace WackEditor.Utilities
             {
                 IUndoRedo action = _undoList.Last();
                 _undoList.RemoveAt(_undoList.Count - 1);
+                _enableAdd = false;
                 action.Undo();
+                _enableAdd = true;
                 _redoList.Insert(0, action);
             }
         }
@@ -86,7 +102,9 @@ namespace WackEditor.Utilities
             {
                 IUndoRedo action = _redoList.First();
                 _redoList.RemoveAt(0);
+                _enableAdd = false;
                 action.Redo();
+                _enableAdd = true;
                 _undoList.Add(action);
             }
         }

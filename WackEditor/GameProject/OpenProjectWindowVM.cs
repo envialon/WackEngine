@@ -64,7 +64,8 @@ namespace WackEditor.GameProject
             catch (Exception ex)
             {
                 Debug.Write(ex.Message);
-                // TODO: log error
+                Logger.Log(MessageTypes.Error, $"Failed to read project data.");
+                throw;
             }
         }
 

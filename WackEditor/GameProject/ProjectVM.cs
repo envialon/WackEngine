@@ -82,10 +82,12 @@ namespace WackEditor.GameProject
         public static void Save(ProjectVM project)
         {
             Serializer.ToFile(project, project.FullPath);
+            Logger.Log(MessageTypes.Info, $"Saved project to {project.FullPath}");
         }
 
         public void Unload()
         {
+            UndoRedoManager.Reset();
         }
 
         /// <summary>

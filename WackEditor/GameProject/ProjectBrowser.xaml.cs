@@ -22,6 +22,19 @@ namespace WackEditor.GameProject
         public ProjectBrowser()
         {
             InitializeComponent();
+            Loaded += OnProjectBrowserDialogLoaded;
+        }
+
+        private void OnProjectBrowserDialogLoaded(object sender, RoutedEventArgs e)
+        {
+            Loaded -= OnProjectBrowserDialogLoaded;
+            if(!OpenProjectWindowVM.Projects.Any())
+            {
+                //TODO: will probably change this with the import project functionality
+                openProjectButton.IsEnabled = false;
+                openProjectView.Visibility = Visibility.Hidden;
+                onToggleButton_Click(createProjectButton, new RoutedEventArgs());
+            }
         }
 
         private void onToggleButton_Click(object sender, RoutedEventArgs e)
