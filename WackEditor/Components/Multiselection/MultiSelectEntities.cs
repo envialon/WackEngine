@@ -7,6 +7,10 @@ using WackEditor.Utilities;
 
 namespace WackEditor.Components.Multiselection
 {
+    /// <summary>
+    /// Acts as the new DataContext for the InspectorView and handles the 
+    /// property modification for a selection of GameEntities, instead of one.
+    /// </summary>
     public abstract class MultiSelectEntity : ViewModelBase
     {
         #region Attributes
@@ -87,7 +91,7 @@ namespace WackEditor.Components.Multiselection
                     {
                         Name = x;
 
-                        foreach(var pair in changedNames)
+                        foreach (var pair in changedNames)
                         {
                             pair.Key.Name = Name;
                         }
@@ -105,7 +109,7 @@ namespace WackEditor.Components.Multiselection
                 bool oldValue = (bool)IsEnabled;
                 IsEnabled = x;
 
-                for(int i = 0; i < selectedEntities.Count;i++)
+                for (int i = 0; i < selectedEntities.Count; i++)
                 {
                     GameEntity entity = (GameEntity)selectedEntities[i];
                     changedEnable.Add(entity, entity.IsEnabled);
@@ -116,7 +120,7 @@ namespace WackEditor.Components.Multiselection
                 x ? $"Enabled Selection" : $"Disabled Selection",
                 () => //undo
                 {
-                    foreach(var pair in changedEnable)
+                    foreach (var pair in changedEnable)
                     {
                         pair.Key.IsEnabled = pair.Value;
                     }
@@ -134,6 +138,7 @@ namespace WackEditor.Components.Multiselection
             }
             );
         }
+
         public List<GameEntity> selectedEntities { get; private set; }
 
         public MultiSelectEntity(List<GameEntity> entities)
@@ -159,6 +164,14 @@ namespace WackEditor.Components.Multiselection
             UpdateProperties();
             _enableUpdates = true;
         }
+
+        //TODO: these two update methods might need renaming to avoid confusion:
+
+        /// <summary>
+        /// Updates the given property of all of the selected GameEntities
+        /// </summary>
+        /// <param name="propertyName">The name of the property to update for the selected GameEntities</param>
+        /// <returns></returns>
         protected virtual bool UpdateGameEntitiesProperties(string propertyName)
         {
             switch (propertyName)
@@ -170,6 +183,10 @@ namespace WackEditor.Components.Multiselection
             return false;
         }
 
+        /// <summary>
+        /// Updates the properties of the MultiSelectedEntity object (self)
+        /// </summary>
+        /// <returns></returns>
         protected virtual bool UpdateProperties()
         {
             IsEnabled = GetMixedValue(selectedEntities, new Func<GameEntity, bool>(x => x.IsEnabled));
@@ -179,6 +196,14 @@ namespace WackEditor.Components.Multiselection
 
 
 #nullable enable
+        /// <summary>
+        /// If all the selected entitites have the same value for the given property
+        /// it will return it, if not, null.
+        /// </summary>
+        /// <typeparam name="T">Type of the property</typeparam>
+        /// <param name="selectedEntities">List of selected GameEntities</param>
+        /// <param name="getProperty">Lambda for getting the property, provided a GameEntity</param>
+        /// <returns></returns>
         static protected T? GetMixedValue<T>(List<GameEntity> selectedEntities, Func<GameEntity, T> getProperty) where T : IComparable<T>
         {
             T value = getProperty(selectedEntities.First());
@@ -193,6 +218,12 @@ namespace WackEditor.Components.Multiselection
         }
 #nullable disable
 
+        /// <summary> 
+        /// Special case for GetMixedValue if the property is a float.
+        /// </summary>
+        /// <param name="selectedEntities">List of selected GameEntities</param>
+        /// <param name="getProperty">Lambda for getting the property, provided a GameEntity</param>
+        /// <returns></returns>
         static protected float? GetMixedValue(List<GameEntity> selectedEntities, Func<GameEntity, float> getProperty)
         {
             float value = getProperty(selectedEntities.First());
