@@ -24,7 +24,7 @@ namespace WackEditor.Utilities
             catch (Exception e)
             {
                 Debug.Write(e.Message);
-                Logger.Log(MessageTypes.Error, $"Failed to serialize {instance} to {path}");
+                LoggerVM.Log(MessageTypes.Error, $"Failed to serialize {instance} to {path}");
                 throw;
             }
         }
@@ -47,7 +47,7 @@ namespace WackEditor.Utilities
             catch (Exception e)
             {
                 Debug.Write(e.Message);
-                Logger.Log(MessageTypes.Error, $"Failed to deserialize {path}");
+                LoggerVM.Log(MessageTypes.Error, $"Failed to deserialize {path}");
                 throw;
             }
         }

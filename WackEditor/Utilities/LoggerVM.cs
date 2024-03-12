@@ -34,7 +34,7 @@ namespace WackEditor.Utilities
         }
     }
 
-    static class Logger
+    static class LoggerVM
     {
         private static int _messageFilter = (int)(MessageTypes.Info | MessageTypes.Warning | MessageTypes.Error);
 
@@ -64,7 +64,7 @@ namespace WackEditor.Utilities
             FilteredMessages.View.Refresh();
         }
 
-        static Logger()
+        static LoggerVM()
         {
             //Set the way the messages need to be filtered when the Refresh method is called
             //(By checking the current filter mask)
