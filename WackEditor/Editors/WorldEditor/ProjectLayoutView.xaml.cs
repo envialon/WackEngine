@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WackEditor.Components;
+using WackEditor.Components.Multiselection;
 using WackEditor.GameProject;
 using WackEditor.Utilities;
 
@@ -37,12 +39,8 @@ namespace WackEditor.Editors
    
         private void OnEntitySelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            InspectorView.Instance.DataContext = null;
 
-            if (e.AddedItems.Count >0)
-            {
-                InspectorView.Instance.DataContext = (sender as ListBox).SelectedItems[0] as GameEntity;
-            }
+            #region Undo/redo selection
             ListBox listBox = sender as ListBox;
             List<GameEntity> selection = listBox.SelectedItems.Cast<GameEntity>().ToList();
             List<GameEntity> previousSelection = selection.Except(e.AddedItems.Cast<GameEntity>().Concat(e.RemovedItems.Cast<GameEntity>())).ToList();
@@ -58,7 +56,16 @@ namespace WackEditor.Editors
                     selection.ForEach(x => (listBox.ItemContainerGenerator.ContainerFromItem(x) as ListBoxItem).IsSelected = true);
                 }
                 ));
+            #endregion
 
+
+            MultiselectGameEntity msEntity = null;
+            
+            if (e.AddedItems.Count > 0)
+            {
+                msEntity = new MultiselectGameEntity(selection);
+            }
+            InspectorView.Instance.DataContext = msEntity;
         }
     }
 }

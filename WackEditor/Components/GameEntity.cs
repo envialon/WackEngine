@@ -52,41 +52,40 @@ namespace WackEditor.Components
         private ObservableCollection<Component> _components = new ObservableCollection<Component>();
         public ReadOnlyObservableCollection<Component> Components { get; private set; }
 
-        public ICommand RenameCommand { get; set; }
-        public ICommand EnableCommand { get; set; }
-
+        //public ICommand RenameCommand { get; set; }
+        //public ICommand EnableCommand { get; set; }
         private void InitializeCommands()
         {
-            RenameCommand = new RelayCommand<string>(x =>
-            {
-                string oldName = Name;
-                Name = x;
+            //RenameCommand = new RelayCommand<string>(x =>
+            //{
+            //    string oldName = Name;
+            //    Name = x;
 
-                ProjectVM.UndoRedoManager.Add(new UndoRedoAction(
-                    $"Renamed {oldName} to {Name}",
-                    nameof(Name),
-                    this,
-                    oldName,
-                    x
-                    ));
-            },
-            x => x != _name
-            );
+            //    ProjectVM.UndoRedoManager.Add(new UndoRedoAction(
+            //        $"Renamed {oldName} to {Name}",
+            //        nameof(Name),
+            //        this,
+            //        oldName,
+            //        x
+            //        ));
+            //},
+            //x => x != _name
+            //);
 
-            EnableCommand = new RelayCommand<bool>(x =>
-            {
-                bool oldValue = IsEnabled;
-                IsEnabled = x;
+            //EnableCommand = new RelayCommand<bool>(x =>
+            //{
+            //    bool oldValue = IsEnabled;
+            //    IsEnabled = x;
 
-                ProjectVM.UndoRedoManager.Add(new UndoRedoAction(
-                x ? $"Enabled {Name}" : $"Disabled {Name}",
-                nameof(IsEnabled),
-                this,
-                oldValue,
-                x
-                ));
-            }
-            ); ;
+            //    ProjectVM.UndoRedoManager.Add(new UndoRedoAction(
+            //    x ? $"Enabled {Name}" : $"Disabled {Name}",
+            //    nameof(IsEnabled),
+            //    this,
+            //    oldValue,
+            //    x
+            //    ));
+            //}
+            //);
         }
 
         [OnDeserialized]
