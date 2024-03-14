@@ -7,8 +7,11 @@
     <ClInclude Include="Components\Entity.h" />
     <ClInclude Include="Components\ComponentCommon.h" />
     <ClInclude Include="Components\Transform.h" />
+    <ClInclude Include="Utilities\Utilities.h" />
+    <ClInclude Include="EngineAPI\GameEntity.h" />
+    <ClInclude Include="EngineAPI\TransformComponent.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Components\Entities.cpp" />
+    <ClCompile Include="Components\Entity.cpp" />
   </ItemGroup>
 </Project>

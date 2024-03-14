@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ComponentCommon.h"
+#include "Transform.h"
 
 namespace wack {
 
@@ -15,8 +16,8 @@ namespace wack {
 			transform::init_info* transform{ nullptr };
 		};
 
-		entity_id create_game_entity(const entity_info& info);
-		void remove_game_entity(entity_id id);
-		bool is_valid(entity_id id);
+		GameEntity create_game_entity(const entity_info& info);
+		void remove_game_entity(GameEntity gameEntity);
+		bool is_valid(GameEntity gameEntity);
 	}
 }
