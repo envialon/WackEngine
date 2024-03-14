@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{900B1AB1-FBAE-4D32-98CD-0DE57CA1BE44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WackEditor", "WackEditor\WackEditor.csproj", "{1A7371C2-6526-4423-9446-38B6BAE17595}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WackEditor", "WackEditor\WackEditor.csproj", "{1A7371C2-6526-4423-9446-38B6BAE17595}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
