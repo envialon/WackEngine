@@ -10,7 +10,7 @@ namespace wack::game_entity {
 	}
 
 
-	GameEntity wack::game_entity::create_game_entity(const entity_info& info)
+	GameEntity wack::game_entity::create_game_entity(const EntityInfo& info)
 	{
 		assert(info.transform);
 		if (!info.transform) return GameEntity();
@@ -40,7 +40,7 @@ namespace wack::game_entity {
 		//Create transform component
 		assert(!transforms[index].is_valid());
 		transforms[index] = transform::create_transform(*info.transform, new_entity);
-		if (transforms[index].is_valid()) return GameEntity();
+		if (!transforms[index].is_valid()) return GameEntity();
 
 		return new_entity;
 	}

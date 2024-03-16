@@ -12,11 +12,11 @@ namespace wack {
 
 	namespace game_entity {
 
-		struct entity_info {
-			transform::init_info* transform{ nullptr };
+		struct EntityInfo {
+			transform::InitInfo* transform{ nullptr };
 		};
 
-		GameEntity create_game_entity(const entity_info& info);
+		GameEntity create_game_entity(const EntityInfo& info);
 		void remove_game_entity(GameEntity gameEntity);
 		bool is_valid(GameEntity gameEntity);
 	}

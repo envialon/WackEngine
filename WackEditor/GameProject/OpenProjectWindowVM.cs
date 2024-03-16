@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using WackEditor.Utilities;
 
 namespace WackEditor.GameProject
@@ -34,15 +29,16 @@ namespace WackEditor.GameProject
     /// Serializable class that contains all of the ProjectData.
     /// </summary>
     [DataContract]
-    public class ProjectDataList {
+    public class ProjectDataList
+    {
         [DataMember]
-        public List<ProjectData> Projects { get; set; } 
+        public List<ProjectData> Projects { get; set; }
     }
 
     /// <summary>
     /// Keeps track of the created projects and lets you load projects from disk.
     /// </summary>
-    class OpenProjectWindowVM  
+    class OpenProjectWindowVM
     {
         private static readonly string _applicationDataPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\WackEditor\";
         private static readonly string _projectDataPath;
@@ -52,9 +48,10 @@ namespace WackEditor.GameProject
 
         static OpenProjectWindowVM()
         {
-            try { 
+            try
+            {
                 //Create the application data directory.
-                if(!Directory.Exists(_applicationDataPath)) Directory.CreateDirectory(_applicationDataPath);
+                if (!Directory.Exists(_applicationDataPath)) Directory.CreateDirectory(_applicationDataPath);
                 _projectDataPath = $@"{_applicationDataPath}ProjectData.xml";
 
                 Projects = new ReadOnlyObservableCollection<ProjectData>(_projects);
@@ -73,9 +70,11 @@ namespace WackEditor.GameProject
         {
             ReadProjectData();
             ProjectData project = _projects.FirstOrDefault(x => x.FullPath == data.FullPath);
-            if (project != null) {
+            if (project != null)
+            {
             }
-            else {
+            else
+            {
                 //project that needs to be open is not on the list,
                 //means that it was just created.
                 project = data;
@@ -94,9 +93,9 @@ namespace WackEditor.GameProject
 
         private static void ReadProjectData()
         {
-            if(File.Exists(_projectDataPath))
+            if (File.Exists(_projectDataPath))
             {
-                var projects = Serializer.FromFile<ProjectDataList>(_projectDataPath).Projects.OrderByDescending( x => x.Date);
+                var projects = Serializer.FromFile<ProjectDataList>(_projectDataPath).Projects.OrderByDescending(x => x.Date);
                 _projects.Clear();
                 foreach (ProjectData data in projects)
                 {

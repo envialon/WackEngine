@@ -48,9 +48,13 @@ namespace WackEditor.Components.Multiselection
 
         }
 
+#nullable enable
+
         [DataMember]
         private ObservableCollection<IMSComponent>? _components = new ObservableCollection<IMSComponent>();
+
         public ReadOnlyObservableCollection<IMSComponent>? Components { get; private set; }
+#nullable disable
         #endregion 
 
         #region commands

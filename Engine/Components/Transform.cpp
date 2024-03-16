@@ -8,7 +8,7 @@ namespace wack::transform {
 		utl::vector<math::v3>	   scales;		
 	} 
 
-	TransformComponent create_transform(const init_info& info, game_entity::GameEntity entity) {
+	TransformComponent create_transform(const InitInfo& info, game_entity::GameEntity entity) {
 		assert(entity.is_valid());
 		const id::id_type entity_index{ id::index(entity.get_id()) };
 		if (positions.size() > entity_index) {

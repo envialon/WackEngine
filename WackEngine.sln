@@ -7,20 +7,43 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcx
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WackEditor", "WackEditor\WackEditor.csproj", "{1A7371C2-6526-4423-9446-38B6BAE17595}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EngineTests", "EngineTests\EngineTests.vcxproj", "{BAE384B7-6D0E-441F-8CB0-82F7989C8BC5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{900B1AB1-FBAE-4D32-98CD-0DE57CA1BE44} = {900B1AB1-FBAE-4D32-98CD-0DE57CA1BE44}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{900B1AB1-FBAE-4D32-98CD-0DE57CA1BE44}.Debug|x64.ActiveCfg = Debug|x64
 		{900B1AB1-FBAE-4D32-98CD-0DE57CA1BE44}.Debug|x64.Build.0 = Debug|x64
+		{900B1AB1-FBAE-4D32-98CD-0DE57CA1BE44}.Debug|x86.ActiveCfg = Debug|Win32
+		{900B1AB1-FBAE-4D32-98CD-0DE57CA1BE44}.Debug|x86.Build.0 = Debug|Win32
 		{900B1AB1-FBAE-4D32-98CD-0DE57CA1BE44}.Release|x64.ActiveCfg = Release|x64
 		{900B1AB1-FBAE-4D32-98CD-0DE57CA1BE44}.Release|x64.Build.0 = Release|x64
+		{900B1AB1-FBAE-4D32-98CD-0DE57CA1BE44}.Release|x86.ActiveCfg = Release|Win32
+		{900B1AB1-FBAE-4D32-98CD-0DE57CA1BE44}.Release|x86.Build.0 = Release|Win32
 		{1A7371C2-6526-4423-9446-38B6BAE17595}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{1A7371C2-6526-4423-9446-38B6BAE17595}.Debug|x64.Build.0 = Debug|Any CPU
+		{1A7371C2-6526-4423-9446-38B6BAE17595}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1A7371C2-6526-4423-9446-38B6BAE17595}.Debug|x86.Build.0 = Debug|Any CPU
 		{1A7371C2-6526-4423-9446-38B6BAE17595}.Release|x64.ActiveCfg = Release|Any CPU
 		{1A7371C2-6526-4423-9446-38B6BAE17595}.Release|x64.Build.0 = Release|Any CPU
+		{1A7371C2-6526-4423-9446-38B6BAE17595}.Release|x86.ActiveCfg = Release|Any CPU
+		{1A7371C2-6526-4423-9446-38B6BAE17595}.Release|x86.Build.0 = Release|Any CPU
+		{BAE384B7-6D0E-441F-8CB0-82F7989C8BC5}.Debug|x64.ActiveCfg = Debug|x64
+		{BAE384B7-6D0E-441F-8CB0-82F7989C8BC5}.Debug|x64.Build.0 = Debug|x64
+		{BAE384B7-6D0E-441F-8CB0-82F7989C8BC5}.Debug|x86.ActiveCfg = Debug|Win32
+		{BAE384B7-6D0E-441F-8CB0-82F7989C8BC5}.Debug|x86.Build.0 = Debug|Win32
+		{BAE384B7-6D0E-441F-8CB0-82F7989C8BC5}.Release|x64.ActiveCfg = Release|x64
+		{BAE384B7-6D0E-441F-8CB0-82F7989C8BC5}.Release|x64.Build.0 = Release|x64
+		{BAE384B7-6D0E-441F-8CB0-82F7989C8BC5}.Release|x86.ActiveCfg = Release|Win32
+		{BAE384B7-6D0E-441F-8CB0-82F7989C8BC5}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

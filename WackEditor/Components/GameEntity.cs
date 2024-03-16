@@ -1,9 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Runtime.Serialization;
-using System.Windows.Input;
 using WackEditor.GameProject;
-using WackEditor.Utilities;
 
 namespace WackEditor.Components
 {

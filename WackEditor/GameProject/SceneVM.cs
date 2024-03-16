@@ -4,7 +4,6 @@ using System.Runtime.Serialization;
 using System.Windows.Input;
 using WackEditor.Components;
 using WackEditor.Utilities;
-using WackEditor;
 
 namespace WackEditor.GameProject
 {
@@ -103,7 +102,7 @@ namespace WackEditor.GameProject
 
             RedoCommand = new RelayCommand<object>(
                 x => ProjectVM.UndoRedoManager.Redo()
-                );    
+                );
         }
 
         [OnDeserialized]

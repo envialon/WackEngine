@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Xps;
 using WackEditor.Utilities;
 
 namespace WackEditor.GameProject
@@ -86,7 +78,8 @@ namespace WackEditor.GameProject
         }
 
         private string _errorMsg;
-        public string ErrorMsg {
+        public string ErrorMsg
+        {
             get => _errorMsg;
             set
             {
@@ -147,10 +140,11 @@ namespace WackEditor.GameProject
 
             IsValid = false;
 
-            if(string.IsNullOrEmpty(ProjectName.Trim())) {
+            if (string.IsNullOrEmpty(ProjectName.Trim()))
+            {
                 ErrorMsg = "Type in a project name.";
             }
-            else if(ProjectName.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
+            else if (ProjectName.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
             {
                 ErrorMsg = "Invalid character(s) used in project name.";
             }
@@ -158,11 +152,11 @@ namespace WackEditor.GameProject
             {
                 ErrorMsg = "Select a valid project folder";
             }
-            else if(ProjectPath.IndexOfAny(Path.GetInvalidPathChars()) != -1)
+            else if (ProjectPath.IndexOfAny(Path.GetInvalidPathChars()) != -1)
             {
                 ErrorMsg = "Invalid character(s) used in project path.";
             }
-            else if(Directory.Exists(fullPath) && Directory.EnumerateFileSystemEntries(fullPath).Any())
+            else if (Directory.Exists(fullPath) && Directory.EnumerateFileSystemEntries(fullPath).Any())
             {
                 ErrorMsg = "Target project folder already exists and its not empty.";
             }
@@ -183,12 +177,12 @@ namespace WackEditor.GameProject
         public string CreateProject(ProjectTemplate template)
         {
             ValidateProjectPath();
-            if(!IsValid)
+            if (!IsValid)
             {
                 return string.Empty;
             }
 
-            if (!Path.EndsInDirectorySeparator(ProjectPath)) ProjectPath+= @"\";        
+            if (!Path.EndsInDirectorySeparator(ProjectPath)) ProjectPath += @"\";
             string fullPath = $@"{ProjectPath}{ProjectName}\";
 
             try
@@ -202,7 +196,7 @@ namespace WackEditor.GameProject
 
 
                 //Copy icon and screenshot to the hidden .Wack dirs
-                DirectoryInfo dirInfo = new DirectoryInfo(fullPath+ @".Wack\");
+                DirectoryInfo dirInfo = new DirectoryInfo(fullPath + @".Wack\");
                 dirInfo.Attributes = FileAttributes.Hidden;
                 File.Copy(template.IconFilePath, Path.GetFullPath(Path.Combine(dirInfo.FullName, "Icon.png")));
                 File.Copy(template.ScreenShotFilePath, Path.GetFullPath(Path.Combine(dirInfo.FullName, "Screenshot.png")));
@@ -224,7 +218,7 @@ namespace WackEditor.GameProject
                 throw;
             }
 
-            
+
         }
 
     }

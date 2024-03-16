@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WackEditor.Utilities
+﻿namespace WackEditor.Utilities
 {
     public static class MathUtils
     {
@@ -13,7 +7,7 @@ namespace WackEditor.Utilities
         public static bool IsTheSameAs(this float value, float other)
         {
             return Math.Abs(value - other) < Epsilon;
-        } 
+        }
         public static bool? IsTheSameAs(this float? value, float? other)
         {
             if (!value.HasValue || other.HasValue) return false;

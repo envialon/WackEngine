@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace WackEditor.GameProject
 {
@@ -28,7 +16,7 @@ namespace WackEditor.GameProject
         private void OnProjectBrowserDialogLoaded(object sender, RoutedEventArgs e)
         {
             Loaded -= OnProjectBrowserDialogLoaded;
-            if(!OpenProjectWindowVM.Projects.Any())
+            if (!OpenProjectWindowVM.Projects.Any())
             {
                 //TODO: will probably change this with the import project functionality
                 openProjectButton.IsEnabled = false;
@@ -39,9 +27,9 @@ namespace WackEditor.GameProject
 
         private void onToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            if(sender == openProjectButton)
+            if (sender == openProjectButton)
             {
-                if(createProjectButton.IsChecked == true)
+                if (createProjectButton.IsChecked == true)
                 {
                     createProjectButton.IsChecked = false;
                     browserContent.Margin = new Thickness(0);

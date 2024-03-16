@@ -1,18 +1,5 @@
-﻿using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WackEditor.Components;
 using WackEditor.Components.Multiselection;
 using WackEditor.GameProject;
@@ -36,7 +23,7 @@ namespace WackEditor.Editors
             SceneVM vm = button.DataContext as SceneVM;
             vm.AddGameEntityCommand.Execute(new GameEntity(vm) { Name = "EmptyGameEntity" });
         }
-   
+
         private void OnEntitySelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -47,11 +34,13 @@ namespace WackEditor.Editors
 
             ProjectVM.UndoRedoManager.Add(new UndoRedoAction(
                 $"Selection changed",
-                () => { 
+                () =>
+                {
                     listBox.UnselectAll();
-                    previousSelection.ForEach(x => (listBox.ItemContainerGenerator.ContainerFromItem(x) as ListBoxItem).IsSelected = true); 
+                    previousSelection.ForEach(x => (listBox.ItemContainerGenerator.ContainerFromItem(x) as ListBoxItem).IsSelected = true);
                 },
-                () => {
+                () =>
+                {
                     listBox.UnselectAll();
                     selection.ForEach(x => (listBox.ItemContainerGenerator.ContainerFromItem(x) as ListBoxItem).IsSelected = true);
                 }
@@ -60,7 +49,7 @@ namespace WackEditor.Editors
 
 
             MultiselectGameEntity msEntity = null;
-            
+
             if (e.AddedItems.Count > 0)
             {
                 msEntity = new MultiselectGameEntity(selection);

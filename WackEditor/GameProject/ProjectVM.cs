@@ -173,7 +173,7 @@ namespace WackEditor.GameProject
 
             InitializeCommands();
         }
-             
+
         //TODO : REMOVE THIS CONSTRUCTOR, PROJECTS SHOULD ONLY BE CREATED BY SERIALIZATION
         /// <summary>
         /// Creates a project by code, SHOULD ONLY BE USED FOR DEBUG REASONS
