@@ -4,7 +4,7 @@
 namespace wack::game_entity {
 
 	namespace {
-		utl::vector<transform::Component>   transforms;
+		utl::vector<transform::TransformComponent>   transforms;
 		utl::vector<id::generation_type>	generations;
 		utl::deque<entity_id>				free_ids;
 	}
@@ -26,7 +26,7 @@ namespace wack::game_entity {
 		}
 		else {
 			id = entity_id{ (id::id_type)generations.size() };
-			generations.push_back(id); // get generation from id?
+			generations.push_back((id::generation_type)id::generation(id)); // get generation from id?
 
 			//resize components
 			//NOTE: don't call resize(), bc the emplace_back method should
@@ -52,7 +52,7 @@ namespace wack::game_entity {
 		assert(is_valid(gameEntity));
 		if (is_valid(gameEntity)) {
 			transform::remove_transform(transforms[index]);
-			transforms[index] = transform::Component();
+			transforms[index] = transform::TransformComponent();
 
 			free_ids.push_back(id);
 		}
@@ -77,7 +77,7 @@ namespace wack::game_entity {
 
 #pragma region GameEntity definition
 
-	transform::Component
+	transform::TransformComponent
 		GameEntity::transform() const {
 
 		assert(wack::game_entity::is_valid(*this));

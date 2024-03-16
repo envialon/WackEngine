@@ -10,6 +10,6 @@ namespace wack::transform {
 		f32 scale[3]{ 1.f, 1.f, 1.f };
 	};
 
-	Component create_transform(const init_info& info, game_entity::GameEntity entity_id);
-	void remove_transform(Component c);
+	TransformComponent create_transform(const init_info& info, game_entity::GameEntity entity);
+	void remove_transform(TransformComponent c);
 }
