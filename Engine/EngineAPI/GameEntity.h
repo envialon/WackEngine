@@ -5,18 +5,18 @@
 
 namespace wack::game_entity {
 
-	DEFINE_TYPED_ID(entity_id);
+	DEFINE_TYPED_ID(EntityId);
 
 
 	class GameEntity {
 	private:
-		entity_id _id;
+		EntityId _id;
 
 
 	public:
-		constexpr explicit GameEntity(entity_id id) : _id{ id } {}
+		constexpr explicit GameEntity(EntityId id) : _id{ id } {}
 		constexpr GameEntity() : _id{ id::invalid_id } {}
-		constexpr entity_id get_id() const { return _id; }
+		constexpr EntityId get_id() const { return _id; }
 		constexpr bool is_valid() const { return id::is_valid(_id); }
 
 		transform::TransformComponent transform() const;

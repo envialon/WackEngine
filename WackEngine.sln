@@ -12,6 +12,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EngineTests", "EngineTests\
 		{900B1AB1-FBAE-4D32-98CD-0DE57CA1BE44} = {900B1AB1-FBAE-4D32-98CD-0DE57CA1BE44}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EngineDLL", "EngineDLL\EngineDLL.vcxproj", "{92EED709-E5EF-47ED-9E76-408FCFB09317}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -44,6 +46,14 @@ Global
 		{BAE384B7-6D0E-441F-8CB0-82F7989C8BC5}.Release|x64.Build.0 = Release|x64
 		{BAE384B7-6D0E-441F-8CB0-82F7989C8BC5}.Release|x86.ActiveCfg = Release|Win32
 		{BAE384B7-6D0E-441F-8CB0-82F7989C8BC5}.Release|x86.Build.0 = Release|Win32
+		{92EED709-E5EF-47ED-9E76-408FCFB09317}.Debug|x64.ActiveCfg = Debug|x64
+		{92EED709-E5EF-47ED-9E76-408FCFB09317}.Debug|x64.Build.0 = Debug|x64
+		{92EED709-E5EF-47ED-9E76-408FCFB09317}.Debug|x86.ActiveCfg = Debug|Win32
+		{92EED709-E5EF-47ED-9E76-408FCFB09317}.Debug|x86.Build.0 = Debug|Win32
+		{92EED709-E5EF-47ED-9E76-408FCFB09317}.Release|x64.ActiveCfg = Release|x64
+		{92EED709-E5EF-47ED-9E76-408FCFB09317}.Release|x64.Build.0 = Release|x64
+		{92EED709-E5EF-47ED-9E76-408FCFB09317}.Release|x86.ActiveCfg = Release|Win32
+		{92EED709-E5EF-47ED-9E76-408FCFB09317}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,7 +6,7 @@ namespace wack::game_entity {
 	namespace {
 		utl::vector<transform::TransformComponent>   transforms;
 		utl::vector<id::generation_type>	generations;
-		utl::deque<entity_id>				free_ids;
+		utl::deque<EntityId>				free_ids;
 	}
 
 
@@ -15,17 +15,17 @@ namespace wack::game_entity {
 		assert(info.transform);
 		if (!info.transform) return GameEntity();
 
-		entity_id id;
+		EntityId id;
 
 		if (free_ids.size() > id::min_deleted_elements) {
 			id = free_ids.front();
 			assert(!is_valid(GameEntity{ id }));
 			free_ids.pop_front();
-			id = entity_id{ id::new_generation(id) };
+			id = EntityId{ id::new_generation(id) };
 			generations[id::index(id)]++;
 		}
 		else {
-			id = entity_id{ (id::id_type)generations.size() };
+			id = EntityId{ (id::id_type)generations.size() };
 			generations.push_back((id::generation_type)id::generation(id)); // get generation from id?
 
 			//resize components
@@ -45,17 +45,21 @@ namespace wack::game_entity {
 		return new_entity;
 	}
 
-	void wack::game_entity::remove_game_entity(GameEntity gameEntity)
-	{
-		const entity_id id{ gameEntity.get_id() };
+	void wack::game_entity::remove_game_entity_by_id(game_entity::EntityId id) {
 		const id::id_type index{ id::index(id) };
-		assert(is_valid(gameEntity));
-		if (is_valid(gameEntity)) {
+		assert(id::is_valid(id));
+		if (id::is_valid(id)) {
 			transform::remove_transform(transforms[index]);
 			transforms[index] = transform::TransformComponent();
 
 			free_ids.push_back(id);
 		}
+	}
+
+	void wack::game_entity::remove_game_entity(GameEntity gameEntity)
+	{
+		const EntityId id{ gameEntity.get_id() };
+		remove_game_entity_by_id(id);
 	}
 
 	/// <summary>
@@ -67,7 +71,7 @@ namespace wack::game_entity {
 	bool wack::game_entity::is_valid(GameEntity gameEntity)
 	{
 		assert(gameEntity.is_valid());
-		const entity_id id{ gameEntity.get_id() };
+		const EntityId id{ gameEntity.get_id() };
 		const id::id_type index{ id::index(id) };
 		assert(index < generations.size());
 		assert(generations[index] == id::generation(id));

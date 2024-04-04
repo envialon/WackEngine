@@ -9,8 +9,47 @@ namespace WackEditor.Components
     [KnownType(typeof(Transform))]
     public class GameEntity : ViewModelBase
     {
-        private bool _isEnabled = true;
+        private int _entityID = Utilities.IdUtils.INVALID_ID;
+        public int EntityID
+        {
+            get => _entityID;
+            set
+            {
+                if (_entityID != value)
+                {
+                    _entityID = value;
+                    OnPropertyChanged(nameof(EntityID));
+                }
+            }
 
+        }
+
+        private bool _isActive;
+        public bool IsActive
+        {
+            get => _isActive;
+            set
+            {
+                if (_isActive != value)
+                {
+                    _isActive = value;
+
+                    if(_isActive)
+                    {
+                        EntityID = DLLWrapper.EngineAPI.CreateGameEntity(this);
+                        Debug.Assert(Utilities.IdUtils.IsValid(EntityID));
+                    }
+                    else
+                    {
+                        DLLWrapper.EngineAPI.RemoveGameEntity(this);
+                    }
+                    OnPropertyChanged(nameof(IsActive));
+                }
+            }
+
+        }
+
+        private bool _isEnabled = true;
         [DataMember]
         public bool IsEnabled
         {
@@ -27,7 +66,6 @@ namespace WackEditor.Components
         }
 
         private string _name;
-
         [DataMember]
         public string Name
         {
@@ -106,5 +144,9 @@ namespace WackEditor.Components
 
             OnDeserialized(new StreamingContext());
         }
+
+        public Component GetComponent(Type type) => Components.FirstOrDefault(c => c.GetType() == type);
+
+        public T GetComponent<T>() where T : Component => GetComponent(typeof(T)) as T;
     }
 }

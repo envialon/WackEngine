@@ -2,7 +2,8 @@
   "profiles": {
     "WackEditor": {
       "commandName": "Project",
-      "workingDirectory": "..\\x64\\Debug\\"
+      "workingDirectory": "..\\x64\\Debug\\",
+      "nativeDebugging": true
     }
   }
 }

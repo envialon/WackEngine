@@ -18,6 +18,7 @@ namespace wack {
 
 		GameEntity create_game_entity(const EntityInfo& info);
 		void remove_game_entity(GameEntity gameEntity);
+		void remove_game_entity_by_id(EntityId id);
 		bool is_valid(GameEntity gameEntity);
 	}
 }

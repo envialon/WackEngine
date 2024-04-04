@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Windows.Input;
@@ -57,14 +58,22 @@ namespace WackEditor.GameProject
 
         public ReadOnlyObservableCollection<GameEntity> Entities { get; private set; }
 
-        private void AddGameEntity(GameEntity entity)
+        private void AddGameEntity(GameEntity entity, int index = -1)
         {
             Debug.Assert(!_entities.Contains(entity));
-            _entities.Add(entity);
+            entity.IsActive = this.IsActive; //is active only if the scene is active.
+            if(index == -1)
+            {
+                _entities.Add(entity);
+            }
+            else {
+                _entities.Insert( index, entity);
+            }
         }
         private void RemoveGameEntity(GameEntity entity)
         {
             Debug.Assert(_entities.Contains(entity));
+            entity.IsActive = false;
             _entities.Remove(entity);
         }
 
@@ -73,12 +82,12 @@ namespace WackEditor.GameProject
             AddGameEntityCommand = new RelayCommand<GameEntity>(
                  x =>
                  {
-                     AddGameEntity(x);
                      int index = _entities.IndexOf(x);
+                     AddGameEntity(x, index);
                      ProjectVM.UndoRedoManager.Add(new UndoRedoAction(
                          $"Add {x.Name} to {Name}",
                          () => { RemoveGameEntity(x); },
-                         () => { _entities.Insert(index, x); }
+                         () => { AddGameEntity(x, index); }
                          ));
                  }
                  );
@@ -90,7 +99,7 @@ namespace WackEditor.GameProject
                     RemoveGameEntity(x);
                     ProjectVM.UndoRedoManager.Add(new UndoRedoAction(
                         $"Remove {x.Name} from {Name}",
-                        () => { _entities.Insert(index, x); },
+                        () => { AddGameEntity(x,index); },
                         () => { RemoveGameEntity(x); }
                         ));
                 }
@@ -116,6 +125,11 @@ namespace WackEditor.GameProject
             {
                 Entities = new ReadOnlyObservableCollection<GameEntity>(_entities);
                 OnPropertyChanged(nameof(Entities));
+            }
+
+            foreach(GameEntity entity in _entities)
+            {
+                entity.IsActive = this.IsActive;
             }
 
             InitializeCommands();

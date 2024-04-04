@@ -20,23 +20,23 @@ private:
 		u32 count = rand() % 20;
 		if (entities.empty()) count = 1000;
 
-		transform::InitInfo transform_info{} ;
+		transform::InitInfo transform_info{};
 		game_entity::EntityInfo entity_info{
 			&transform_info,
 		};
 
-		for (int i = 0; i < count;i++) {
+		for (int i = 0; i < count; i++) {
 			added++;
 			game_entity::GameEntity entity{ game_entity::create_game_entity(entity_info) };
 			assert(entity.is_valid()); //&& id::is_valid(entity.get_id()));
 			entities.push_back(entity);
 		}
 	}
-	
+
 	void remove_random() {
 		u32 count = rand() % 20;
 		if (entities.size() < 1000) return;
-		
+
 		for (int i = 0; i < count; i++) {
 			const u32 index = (u32)rand() % entities.size();
 			const game_entity::GameEntity entity{ entities[index] };
@@ -45,7 +45,7 @@ private:
 
 			game_entity::remove_game_entity(entity);
 			entities.erase(entities.begin() + index);
-			removed++; 
+			removed++;
 
 			assert(!game_entity::is_valid(entity));
 		}
