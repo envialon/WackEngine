@@ -28,5 +28,31 @@ namespace WackEditor.Dictionaries
             }
 
         }
+
+        private void OnCloseButtonClick(object sender, RoutedEventArgs e)
+        {
+            Window window = (Window)((FrameworkElement)sender).TemplatedParent;
+            window.Close();
+        }
+
+        private void OnMaximizeRestoreButtonClick(object sender, RoutedEventArgs e)
+        {
+
+            Window window = (Window)((FrameworkElement)sender).TemplatedParent;
+            if(window.WindowState == WindowState.Normal)
+            {
+                window.WindowState = WindowState.Maximized;
+            }
+            else
+            {
+                window.WindowState = WindowState.Normal;   
+            }
+        }
+
+        private void OnMinimizeButtonClick(object sender, RoutedEventArgs e)
+        {
+            Window window = (Window)((FrameworkElement)sender).TemplatedParent;
+            window.WindowState = WindowState.Minimized;
+        }
     }
 }

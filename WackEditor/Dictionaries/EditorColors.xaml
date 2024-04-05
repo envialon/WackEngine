@@ -1,0 +1,37 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WackEditor.Dictionaries">
+
+    <Color x:Key="Editor.Window.PrimaryColor0">#ff282428</Color>
+    <Color x:Key="Editor.Window.PrimaryColor1">#ff8A838B</Color>
+    <Color x:Key="Editor.Window.PrimaryColor2">#ff413A42</Color>
+    <Color x:Key="Editor.Window.PrimaryColor3">#ff322E33</Color>
+    <Color x:Key="Editor.Window.PrimaryColor4">#ff252026</Color>
+    <Color x:Key="Editor.Window.PrimaryColor5">#ff1F1720</Color>    
+
+    <Color x:Key="Editor.Disabled.DisabledFontColor">#ff868686</Color>
+    <Color x:Key="Editor.FontColor">#ffdddddd</Color>
+    
+    <Color x:Key="Editor.Red">#ffff5a6a</Color>
+    <Color x:Key="Editor.Green">#ff90ee90</Color>
+    <Color x:Key="Editor.Blue">#ff80deff</Color>
+    <Color x:Key="Editor.Orange">#ffffd067</Color>
+    <Color x:Key="Editor.Selected.SelectionBackground">#ff3c67b6</Color>
+    
+    <SolidColorBrush Color="{StaticResource Editor.Window.PrimaryColor0}" x:Key="Editor.Window.PrimaryBrush0"/>
+    <SolidColorBrush Color="{StaticResource Editor.Window.PrimaryColor1}" x:Key="Editor.Window.PrimaryBrush1"/>
+    <SolidColorBrush Color="{StaticResource Editor.Window.PrimaryColor2}" x:Key="Editor.Window.PrimaryBrush2"/>
+    <SolidColorBrush Color="{StaticResource Editor.Window.PrimaryColor3}" x:Key="Editor.Window.PrimaryBrush3"/>
+    <SolidColorBrush Color="{StaticResource Editor.Window.PrimaryColor4}" x:Key="Editor.Window.PrimaryBrush4"/>
+    <SolidColorBrush Color="{StaticResource Editor.Window.PrimaryColor5}" x:Key="Editor.Window.PrimaryBrush5"/>
+    
+    <SolidColorBrush Color="{StaticResource Editor.FontColor}" x:Key="Editor.FontBrush"/>
+    <SolidColorBrush Color="{StaticResource Editor.Disabled.DisabledFontColor}" x:Key="Editor.Disabled.DisabledFontBrush"/>
+    
+    <SolidColorBrush Color="{StaticResource Editor.Red}" x:Key="Editor.RedBrush"/>
+    <SolidColorBrush Color="{StaticResource Editor.Green}" x:Key="Editor.GreenBrush"/>
+    <SolidColorBrush Color="{StaticResource Editor.Blue}" x:Key="Editor.BlueBrush"/>
+    <SolidColorBrush Color="{StaticResource Editor.Orange}" x:Key="Editor.OrangeBrush"/>
+    <SolidColorBrush Color="{StaticResource Editor.Selected.SelectionBackground}" x:Key="Editor.Selected.SelectionBrush"/>
+    
+</ResourceDictionary>

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 
 namespace WackEditor.GameProject
 {
@@ -46,6 +47,6 @@ namespace WackEditor.GameProject
                 }
                 createProjectButton.IsChecked = true;
             }
-        }
+        }       
     }
 }

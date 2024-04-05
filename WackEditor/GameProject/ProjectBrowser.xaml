@@ -6,12 +6,67 @@
         xmlns:local="clr-namespace:WackEditor.GameProject"
         mc:Ignorable="d" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Title="WackEngine Project Browser" Height="550" Width="800">
+        Title="WackEngine Project Browser" Height="550" Width="800"
+        Style="{StaticResource WackDialogStyle}">
+    
+    <Window.Resources>
+   
+       <Style TargetType="{x:Type ToggleButton}">
+            <Setter Property="FontSize" Value="32"/>
+            <Setter Property="FontFamily" Value="Bahnschrift condensed"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource Editor.Disabled.DisabledFontBrush}"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <TextBlock Text ="{TemplateBinding Button.Content}" Style="{x:Null}">
+                            <TextBlock.Effect>
+                                <DropShadowEffect BlurRadius="2" ShadowDepth="1" Opacity="0.6"/>
+                            </TextBlock.Effect>                            
+                        </TextBlock>
+                        
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="{StaticResource Editor.Window.PrimaryBrush4}"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsChecked" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Foreground" Value="{StaticResource Editor.FontBrush}"/>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+
+        <Rectangle Height="2" VerticalAlignment="Bottom" Margin="40, 0">
+            <Rectangle.Fill>
+                <LinearGradientBrush>
+                    <LinearGradientBrush.GradientStops>
+                        <GradientStop Color="Transparent" Offset="0"/>
+                        <GradientStop Color="{StaticResource Editor.Disabled.DisabledFontColor}" Offset="0.33"/>
+                        <GradientStop Color="{StaticResource Editor.Disabled.DisabledFontColor}" Offset="0.66"/>
+                        <GradientStop Color="Transparent" Offset="1"/>
+                    </LinearGradientBrush.GradientStops>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
         
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
             <ToggleButton Content="Open Project" x:Name="openProjectButton" FontSize="32"
@@ -21,6 +76,10 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" x:Name="browserContent" >
+            <StackPanel.Effect>
+                <DropShadowEffect Opacity="0.2" BlurRadius="15" ShadowDepth="2"/>
+            </StackPanel.Effect>
+            
             <local:OpenProjectView x:Name="openProjectView"/>
             <local:CreateProjectView x:Name="createProjectView"/>
             
