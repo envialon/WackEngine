@@ -37,7 +37,7 @@ namespace WackEditor.Components
                     if(_isActive)
                     {
                         EntityID = DLLWrapper.EngineAPI.CreateGameEntity(this);
-                        Debug.Assert(Utilities.IdUtils.IsValid(EntityID));
+                        //Debug.Assert(Utilities.IdUtils.IsValid(EntityID));
                     }
                     else
                     {

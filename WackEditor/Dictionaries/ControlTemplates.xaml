@@ -2,6 +2,7 @@
                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:WackEditor.Dictionaries">
+    
     <Style TargetType="{x:Type TextBlock}" x:Key="LightTextBlockStyle">
         <Setter Property="Foreground" Value="{StaticResource Editor.FontBrush}"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
@@ -46,12 +47,11 @@
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
-            
+
         </Setter>
     </Style>
-    
-    <Style x:Key="WackWindowStyle" TargetType="{x:Type Window}">
-        <Setter Property="BorderBrush" Value="{StaticResource Editor.Selected.SelectionBrush}"/>
+
+    <Style x:Key="WackWindowStyle" TargetType="{x:Type Window}">        
         <Setter Property="Background" Value="{StaticResource Editor.Window.PrimaryBrush0}"/>
         <Setter Property="WindowChrome.WindowChrome">
             <Setter.Value>
@@ -138,7 +138,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style x:Key="WackDialogStyle" TargetType="{x:Type Window}">
         <Setter Property="BorderBrush" Value="{StaticResource Editor.Selected.SelectionBrush}"/>
         <Setter Property="Background" Value="{StaticResource Editor.Window.PrimaryBrush0}"/>
@@ -205,7 +205,7 @@
                                         </Grid>
                                     </Button.Content>
                                 </Button>
-                 
+
 
                             </DockPanel>
                         </Grid>
@@ -216,4 +216,101 @@
         </Setter>
     </Style>
 
+
+    <Style x:Key="FocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{StaticResource Editor.FontBrush}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style TargetType="{x:Type Button}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="{StaticResource Editor.Window.PrimaryColor2}" Offset="0"/>
+                    <GradientStop Color="{StaticResource Editor.Window.PrimaryColor3}" Offset="1"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderBrush">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="{StaticResource Editor.Window.PrimaryColor2}" Offset="0"/>
+                    <GradientStop Color="{StaticResource Editor.Window.PrimaryColor4}" Offset="1"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground" Value="{StaticResource Editor.FontBrush}"/>
+        <Setter Property="BorderThickness" Value="0,1"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="5,3"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <ControlTemplate.Resources>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" x:Key="Button.Selected.OpacityBrush">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="#88ffffff" Offset="1"/>
+                        </LinearGradientBrush>
+
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" x:Key="Button.Selected.ReverseOpacityBrush">
+                            <GradientStop Color="White" Offset="1"/>
+                            <GradientStop Color="#88ffffff" Offset="0"/>
+                        </LinearGradientBrush>
+
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" x:Key="Button.Disabled.BackGroundBrush">
+                            <GradientStop Color="{StaticResource Editor.Window.PrimaryColor4}" Offset="0"/>
+                            <GradientStop Color="{StaticResource Editor.Window.PrimaryColor5}" Offset="1"/>
+                        </LinearGradientBrush>
+
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" x:Key="Button.Disabled.BorderBrush">
+                            <GradientStop Color="{StaticResource Editor.Window.PrimaryColor3}" Offset="0"/>
+                            <GradientStop Color="{StaticResource Editor.Window.PrimaryColor5}" Offset="1"/>
+                        </LinearGradientBrush>
+                    </ControlTemplate.Resources>
+                    <Grid>
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
+                              BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" CornerRadius="3"/>
+
+                        <Border x:Name="borderSelected" SnapsToDevicePixels="True" CornerRadius="3" BorderThickness="0" BorderBrush="Transparent"/>
+
+                        <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                                Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <Setter Property="Background" TargetName="borderSelected" Value="{StaticResource Editor.Selected.SelectionBrush}"/>
+                            <Setter Property="OpacityMask" TargetName="borderSelected" Value="{StaticResource Button.Selected.OpacityBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="TextElement.Foreground" TargetName="borderSelected" Value="White"/>
+                            <Setter Property="Background" TargetName="borderSelected" Value="{StaticResource Editor.Selected.SelectionBrush}"/>
+                            <Setter Property="OpacityMask" TargetName="borderSelected" Value="{StaticResource Button.Selected.OpacityBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="TextElement.Foreground" TargetName="borderSelected" Value="White"/>
+                            <Setter Property="Background" TargetName="borderSelected" Value="{StaticResource Editor.Selected.SelectionBrush}"/>
+                            <Setter Property="OpacityMask" TargetName="borderSelected" Value="{StaticResource Button.Selected.ReverseOpacityBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="TextElement.Foreground" TargetName="borderSelected" Value="{StaticResource Editor.Disabled.DisabledFontBrush}"/>
+                            <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.BackGroundBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.BorderBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

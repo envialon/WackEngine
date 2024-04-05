@@ -16,7 +16,7 @@
     <Color x:Key="Editor.Green">#ff90ee90</Color>
     <Color x:Key="Editor.Blue">#ff80deff</Color>
     <Color x:Key="Editor.Orange">#ffffd067</Color>
-    <Color x:Key="Editor.Selected.SelectionBackground">#ff3c67b6</Color>
+    <Color x:Key="Editor.Selected.SelectionBackground">#ff811C9A</Color>
     
     <SolidColorBrush Color="{StaticResource Editor.Window.PrimaryColor0}" x:Key="Editor.Window.PrimaryBrush0"/>
     <SolidColorBrush Color="{StaticResource Editor.Window.PrimaryColor1}" x:Key="Editor.Window.PrimaryBrush1"/>
