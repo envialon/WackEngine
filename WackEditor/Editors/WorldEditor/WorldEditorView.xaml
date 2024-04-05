@@ -35,8 +35,9 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
-                <TabControl Grid.Row="1">
+                <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch"
+                              VerticalAlignment="Top" Background="{StaticResource Editor.Window.PrimaryBrush5}"/>
+                <TabControl Grid.Row="1" Background="Transparent">
                     <TabItem Header="History">
                         <utilities:UndoRedoView DataContext="{Binding UndoRedoManager}" />
                     </TabItem>
@@ -48,14 +49,16 @@
 
             <GridSplitter Grid.Column="1" Width="5"
                       HorizontalAlignment="Left"
-                      VerticalAlignment="Stretch"/>
+                      VerticalAlignment="Stretch"
+                      Background="{StaticResource Editor.Window.PrimaryBrush5}"/>
             <Grid Grid.Column="1" Margin="5, 0,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <GridSplitter Grid.Row="1" Height="5"
-                HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+                HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                Background="{StaticResource Editor.Window.PrimaryBrush5}"/>
 
                 <local:ProjectLayoutView/>
                 <local:InspectorView Grid.Row="1"/>

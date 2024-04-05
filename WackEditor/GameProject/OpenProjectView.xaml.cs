@@ -50,5 +50,10 @@ namespace WackEditor.GameProject
             win.DialogResult = dialogResult;
             win.Close();
         }
+
+        private void projectsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
